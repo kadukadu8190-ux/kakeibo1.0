@@ -652,7 +652,7 @@
               <span class="text-[10px] font-bold text-stone-400">固定費管理</span>
             </div>
             <p class="text-[12px] text-stone-600 leading-relaxed">
-              Netflix・Spotify・iCloud+・携帯料金などの月額／年額サービスを登録しておくと、毎月の固定費と次回請求日がひと目でわかります。
+              Netflix・LINE MUSIC・Spotify・iCloud+など幅広い月額／年額サービスを登録しておくと、毎月の固定費と次回請求日がひと目でわかります。
             </p>
             <div class="bg-stone-50 rounded-xl p-3 space-y-1.5 text-[11px] text-stone-700">
               <div class="flex items-start gap-2">
@@ -1144,7 +1144,7 @@
               <h4 class="text-[14px] font-bold text-stone-800">🔄 サブスク管理で固定費を可視化しよう</h4>
             </div>
             <p class="text-[12px] text-stone-600 leading-relaxed">
-              Netflix・Spotify・iCloud+・ジムなどの月額／年額サブスクを登録すると、請求日の管理と実質残高の自動差引ができます。
+              Netflix・LINE MUSIC・Spotify・iCloud+・ジムなどの月額／年額サブスクを登録すると、請求日の管理と実質残高の自動差引ができます。
             </p>
             <ul class="text-[11px] text-stone-600 bg-stone-50 rounded-xl p-3 space-y-1.5 leading-relaxed">
               <li>・<strong>「口座残高」</strong>＞<strong>「＋ サブスクを追加」</strong>からプリセット検索または自由入力</li>
@@ -1444,6 +1444,51 @@
       { name: 'chocoZAP（チョコザップ）', cat: 'ジム・ライフ', icon: '💪', amount: 3278, cycle: 'monthly', day: 20, kw: 'ちょこざっぷ ジム フィットネス 運動' },
       { name: '携帯通信料（スマホ月額）', cat: '通信・インフラ', icon: '📱', amount: 2970, cycle: 'monthly', day: 27, kw: 'けいたい つうしんりょう ahamo povo linemo 楽天モバイル' },
       { name: '自宅Wi-Fi（光回線・ホームルーター）', cat: '通信・インフラ', icon: '📶', amount: 4950, cycle: 'monthly', day: 27, kw: 'わいふぁい 光回線 インターネット' },
+      // 音楽配信
+      { name: 'LINE MUSIC', cat: '動画・音楽', icon: '🎼', amount: 0, cycle: 'monthly', day: 1, kw: 'ラインミュージック line music 音楽' },
+      { name: 'AWA', cat: '動画・音楽', icon: '🎧', amount: 0, cycle: 'monthly', day: 1, kw: 'あわ 音楽' },
+      { name: '楽天ミュージック', cat: '動画・音楽', icon: '🎵', amount: 0, cycle: 'monthly', day: 1, kw: 'らくてん music 音楽' },
+      { name: 'Amazon Music Unlimited', cat: '動画・音楽', icon: '🎶', amount: 0, cycle: 'monthly', day: 1, kw: 'あまぞんみゅーじっく unlimited' },
+      { name: 'YouTube Music Premium', cat: '動画・音楽', icon: '▶️', amount: 0, cycle: 'monthly', day: 1, kw: 'ゆーちゅーぶみゅーじっく' },
+      { name: 'auうたパス', cat: '動画・音楽', icon: '🎤', amount: 0, cycle: 'monthly', day: 1, kw: 'うたぱす 音楽' },
+      { name: 'Apple TV+', cat: '動画・音楽', icon: '🍎', amount: 0, cycle: 'monthly', day: 1, kw: 'あっぷるてぃーびー' },
+      { name: 'Hulu', cat: '動画・音楽', icon: '📺', amount: 0, cycle: 'monthly', day: 1, kw: 'ふーるー 動画' },
+      { name: 'DMM TV', cat: '動画・音楽', icon: '🎬', amount: 0, cycle: 'monthly', day: 1, kw: 'でぃーえむえむ 動画 アニメ' },
+      { name: 'ABEMAプレミアム', cat: '動画・音楽', icon: '📡', amount: 0, cycle: 'monthly', day: 1, kw: 'あべま abema' },
+      { name: 'FODプレミアム', cat: '動画・音楽', icon: '📺', amount: 0, cycle: 'monthly', day: 1, kw: 'えふおーでぃー フジテレビ' },
+      { name: 'Leminoプレミアム', cat: '動画・音楽', icon: '🎞️', amount: 0, cycle: 'monthly', day: 1, kw: 'れみの lemino' },
+      { name: 'TELASA', cat: '動画・音楽', icon: '📺', amount: 0, cycle: 'monthly', day: 1, kw: 'てらさ テレビ朝日' },
+      { name: 'DAZN for docomo', cat: '動画・音楽', icon: '⚽', amount: 0, cycle: 'monthly', day: 1, kw: 'だぞーん ドコモ スポーツ' },
+      { name: 'バンダイチャンネル', cat: '動画・音楽', icon: '📺', amount: 0, cycle: 'monthly', day: 1, kw: 'ばんだい アニメ' },
+      { name: 'dアニメストア', cat: '動画・音楽', icon: '🎌', amount: 0, cycle: 'monthly', day: 1, kw: 'でぃーあにめ アニメ' },
+      // クラウド・AI・ソフト
+      { name: 'Microsoft 365', cat: 'クラウド・AI', icon: '🪟', amount: 0, cycle: 'monthly', day: 1, kw: 'まいくろそふと office' },
+      { name: 'Dropbox', cat: 'クラウド・AI', icon: '📁', amount: 0, cycle: 'monthly', day: 1, kw: 'どろっぷぼっくす' },
+      { name: 'OneDrive', cat: 'クラウド・AI', icon: '☁️', amount: 0, cycle: 'monthly', day: 1, kw: 'わんどらいぶ microsoft' },
+      { name: 'Adobe Creative Cloud', cat: 'クラウド・AI', icon: '🎨', amount: 0, cycle: 'monthly', day: 1, kw: 'あどび adobe photoshop illustrator' },
+      { name: 'Google Workspace', cat: 'クラウド・AI', icon: '🌐', amount: 0, cycle: 'monthly', day: 1, kw: 'ぐーぐるわーくすぺーす' },
+      { name: 'Claude Pro', cat: 'クラウド・AI', icon: '🤖', amount: 0, cycle: 'monthly', day: 1, kw: 'くろーど anthropic ai' },
+      { name: 'Gemini Advanced', cat: 'クラウド・AI', icon: '✨', amount: 0, cycle: 'monthly', day: 1, kw: 'じぇみに google ai' },
+      { name: 'Perplexity Pro', cat: 'クラウド・AI', icon: '🔎', amount: 0, cycle: 'monthly', day: 1, kw: 'ぱーぷれきしてぃ ai' },
+      // ゲーム・読書
+      { name: 'Nintendo Switch Online（ファミリー・年間）', cat: 'ゲーム・読書', icon: '🎮', amount: 0, cycle: 'yearly', month: 1, day: 1, kw: 'にんてんどう ファミリー' },
+      { name: 'PlayStation Plus（エクストラ）', cat: 'ゲーム・読書', icon: '🕹️', amount: 0, cycle: 'monthly', day: 1, kw: 'ぷれいすてーしょん ps plus' },
+      { name: 'PlayStation Plus（プレミアム）', cat: 'ゲーム・読書', icon: '🕹️', amount: 0, cycle: 'monthly', day: 1, kw: 'ぷれいすてーしょん ps plus' },
+      { name: 'YouTubeメンバーシップ', cat: 'ゲーム・読書', icon: '⭐', amount: 0, cycle: 'monthly', day: 1, kw: 'ゆーちゅーぶ メンバー' },
+      { name: 'ジャンプ＋', cat: 'ゲーム・読書', icon: '📚', amount: 0, cycle: 'monthly', day: 1, kw: 'じゃんぷぷらす 漫画' },
+      { name: 'コミックシーモア', cat: 'ゲーム・読書', icon: '📖', amount: 0, cycle: 'monthly', day: 1, kw: 'こみっくしーもあ 漫画' },
+      { name: 'ブック放題', cat: 'ゲーム・読書', icon: '📚', amount: 0, cycle: 'monthly', day: 1, kw: 'ぶっくほうだい 雑誌' },
+      { name: 'Audible', cat: 'ゲーム・読書', icon: '🎧', amount: 0, cycle: 'monthly', day: 1, kw: 'おーでぃぶる オーディオブック' },
+      { name: '楽天マガジン', cat: 'ゲーム・読書', icon: '📰', amount: 0, cycle: 'monthly', day: 1, kw: 'らくてんまがじん 雑誌' },
+      // 生活・買い物・その他
+      { name: 'Yahoo!プレミアム / LY手帳', cat: '生活・買い物', icon: '🛍️', amount: 0, cycle: 'monthly', day: 1, kw: 'やふー yahoo lineヤフー' },
+      { name: '楽天プレミアム', cat: '生活・買い物', icon: '🛒', amount: 0, cycle: 'yearly', month: 1, day: 1, kw: 'らくてん premium' },
+      { name: 'Amazon Kids+', cat: '生活・買い物', icon: '🧸', amount: 0, cycle: 'monthly', day: 1, kw: 'あまぞんきっず' },
+      { name: '食べログ プレミアム', cat: '生活・買い物', icon: '🍽️', amount: 0, cycle: 'monthly', day: 1, kw: 'たべろぐ' },
+      { name: 'ホットペッパーグルメ', cat: '生活・買い物', icon: '🍴', amount: 0, cycle: 'monthly', day: 1, kw: 'ほっとぺっぱー' },
+      { name: 'オンラインサロン・会員費', cat: '生活・買い物', icon: '👥', amount: 0, cycle: 'monthly', day: 1, kw: 'さろん メンバーシップ 会費' },
+      { name: 'その他の定期購入', cat: '生活・買い物', icon: '📦', amount: 0, cycle: 'monthly', day: 1, kw: 'ていきこうにゅう サブスク' },
+      // 既存カテゴリにないサービスも自由入力で登録できます
     ];
 
     // 全国約95行銀行マスター
@@ -1472,6 +1517,7 @@
       { name: 'あおぞら銀行', cat: 'ネット銀行', color: 'blue', kw: 'あおぞら aozora' },
       { name: '大和ネクスト銀行', cat: 'ネット銀行', color: 'blue', kw: 'だいわねくすと daiwa' },
       { name: 'オリックス銀行', cat: 'ネット銀行', color: 'blue', kw: 'おりっくす orix' },
+      { name: 'PayPay残高', cat: '電子マネー・決済', color: 'rose', kw: 'ぺいぺい paypay 残高 電子マネー ウォレット' },
       { name: '北海道銀行', cat: '地方銀行', color: 'blue', kw: 'ほっかいどう どうぎん hokkaido' },
       { name: '北洋銀行', cat: '地方銀行', color: 'rose', kw: 'ほくよう hokuyo' },
       { name: '青森みちのく銀行', cat: '地方銀行', color: 'emerald', kw: 'あおもりみちのく aomori michinoku' },
@@ -2724,7 +2770,7 @@
     }
 
     function renderBankCategoryPills() {
-      const cats = ['すべて', 'メガ・ゆうちょ', 'ネット銀行', '地方銀行', '信金・JA・カスタム'];
+      const cats = ['すべて', 'メガ・ゆうちょ', 'ネット銀行', '地方銀行', '電子マネー・決済', '信金・JA・カスタム'];
       document.getElementById('bank-cat-pills').innerHTML = cats.map((c) => {
         const active = c === bankSearchCat;
         return `
@@ -3062,7 +3108,7 @@
     }
 
     function renderSubCategoryPills() {
-      const cats = ['すべて', '動画・音楽', 'クラウド・AI', 'ゲーム・読書', 'ジム・ライフ', '通信・インフラ'];
+      const cats = ['すべて', '動画・音楽', 'クラウド・AI', 'ゲーム・読書', 'ジム・ライフ', '通信・インフラ', '生活・買い物'];
       document.getElementById('sub-cat-pills').innerHTML = cats.map((c) => {
         const active = c === subSearchCat;
         return `
