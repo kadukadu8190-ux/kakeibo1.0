@@ -756,6 +756,61 @@
     </div>
 
     <!-- =====================================================================
+         MODAL A: 銀行口座 検索＆登録モーダル（欠落していたため復元）
+         ===================================================================== -->
+    <div id="modal-bank-search" class="hidden fixed inset-0 z-50 bg-black/45 flex items-end sm:items-center justify-center">
+      <div class="bg-white w-full max-w-[480px] rounded-t-3xl sm:rounded-3xl h-[88dvh] sm:h-[82dvh] flex flex-col shadow-2xl overflow-hidden">
+        <div class="flex-shrink-0 px-4 py-3.5 border-b border-stone-100 flex items-center justify-between bg-baseBg">
+          <div class="flex items-center gap-2 min-w-0">
+            <button type="button" id="bank-modal-back-btn" onclick="backToBankSearchStep()" class="hidden text-[12px] font-bold text-accent px-2.5 py-1 rounded-lg bg-warmBeige shrink-0">
+              ← 一覧に戻る
+            </button>
+            <h3 id="bank-modal-title" class="text-[15px] font-bold text-stone-800">銀行口座を追加</h3>
+          </div>
+          <button type="button" onclick="closeBankSearchModal()" class="text-[13px] font-bold text-stone-500 px-2 py-1 shrink-0">閉じる</button>
+        </div>
+
+        <div id="bank-step-search" class="flex-1 min-h-0 flex flex-col overflow-hidden">
+          <div class="flex-shrink-0 p-3 bg-white border-b border-stone-100 space-y-2.5">
+            <div class="relative flex items-center">
+              <svg class="w-4 h-4 text-stone-400 absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path stroke-linecap="round" d="M20 20l-3.5-3.5"></path>
+              </svg>
+              <input type="text" id="bank-search-input" oninput="renderBankSearchList()" placeholder="銀行名で検索（例：三菱UFJ、楽天、ゆうちょ）" class="w-full rounded-xl bg-stone-100 pl-9 pr-9 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-accent" />
+              <button type="button" id="bank-search-clear" onclick="document.getElementById('bank-search-input').value=''; renderBankSearchList();" class="hidden absolute right-3 w-5 h-5 rounded-full bg-stone-300 text-white text-[11px] font-bold flex items-center justify-center">×</button>
+            </div>
+            <div id="bank-cat-pills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5"></div>
+          </div>
+          <div id="bank-search-results" class="flex-1 min-h-0 vertical-scroll-lock divide-y divide-stone-100 pb-6"></div>
+        </div>
+
+        <div id="bank-step-config" class="hidden flex-1 min-h-0 vertical-scroll-lock p-5 space-y-4">
+          <div class="space-y-1.5">
+            <label for="bank-cfg-name" class="block text-[12px] font-bold text-stone-700">口座名</label>
+            <input type="text" id="bank-cfg-name" class="w-full rounded-xl bg-stone-100 border border-stone-200 px-3.5 py-2.5 font-bold text-stone-800 focus:outline-none focus:border-accent" />
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="bank-cfg-balance" class="block text-[12px] font-bold text-stone-700">現在の残高（円）</label>
+            <input type="number" inputmode="numeric" id="bank-cfg-balance" placeholder="0" class="w-full rounded-xl bg-stone-100 border border-stone-200 px-3.5 py-2.5 text-right tabular-nums text-[24px] font-bold text-stone-800 focus:outline-none focus:border-accent" />
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="block text-[12px] font-bold text-stone-700">テーマカラー</label>
+            <div id="bank-cfg-colors" class="grid grid-cols-6 gap-2"></div>
+          </div>
+
+          <div class="pt-2">
+            <button type="button" onclick="confirmAddBankAccount()" class="w-full py-3.5 rounded-2xl bg-accent hover:bg-accentDark text-white font-bold text-[15px] shadow-md active:scale-[0.99]">
+              この口座を登録する
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =====================================================================
          MODAL B: 支払い方法 検索＆全パターン登録モーダル
          ===================================================================== -->
     <div id="modal-pm-search" class="hidden fixed inset-0 z-50 bg-black/45 flex items-end sm:items-center justify-center">
@@ -2593,7 +2648,7 @@
        ========================================================================= */
     function bindSearchModalDelegation() {
       const bankResultsEl = document.getElementById('bank-search-results');
-      bankResultsEl.addEventListener('click', (e) => {
+      if (bankResultsEl) bankResultsEl.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-bank-idx]');
         if (!btn) return;
         const rawIdx = btn.getAttribute('data-bank-idx');
@@ -2609,7 +2664,7 @@
       });
 
       const pmResultsEl = document.getElementById('pm-search-results');
-      pmResultsEl.addEventListener('click', (e) => {
+      if (pmResultsEl) pmResultsEl.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-pay-idx]');
         if (!btn) return;
         const rawIdx = btn.getAttribute('data-pay-idx');
@@ -2625,7 +2680,7 @@
       });
 
       const subResultsEl = document.getElementById('sub-search-results');
-      subResultsEl.addEventListener('click', (e) => {
+      if (subResultsEl) subResultsEl.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-sub-idx]');
         if (!btn) return;
         const rawIdx = btn.getAttribute('data-sub-idx');
