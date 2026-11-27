@@ -708,7 +708,7 @@
                   <span class="text-stone-400 text-[11px] group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div class="px-3 py-2.5 text-[11px] text-stone-600 leading-relaxed bg-white border-t border-stone-100">
-                  <strong>「口座残高」</strong>タブの一番下にある<strong>「📅 引き落とし予定」</strong>の<strong>「引落完了（残高に反映）」</strong>ボタンを押してください。銀行口座の実際の残高から引き落とし額が差し引かれます。
+                  引落日になると、<strong>自動で</strong>銀行口座の残高から引き落とし額が差し引かれます（支払い方法ごとにON/OFF可）。OFFにしている場合や先に反映したい場合は、<strong>「口座残高」</strong>タブの一番下にある<strong>「📅 引き落とし予定」</strong>の<strong>「引落完了（残高に反映）」</strong>ボタンを押してください。
                 </div>
               </details>
 
@@ -892,6 +892,16 @@
             </div>
           </div>
 
+          <div id="pm-cfg-autosettle-wrap" class="bg-stone-50 rounded-xl px-3.5 py-2.5 border border-stone-200 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <div class="text-[12px] font-bold text-stone-800">引落日に自動で残高へ反映</div>
+              <div class="text-[10px] text-stone-500 mt-0.5">OFFの場合は「引落完了」ボタンを押したときに反映します</div>
+            </div>
+            <button type="button" id="pm-cfg-autosettle-btn" onclick="togglePmCfgAutoSettle()" role="switch" aria-checked="true" aria-label="引落日に自動で残高へ反映" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-accent transition-colors duration-200 focus:outline-none">
+              <span id="pm-cfg-autosettle-knob" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 translate-x-5"></span>
+            </button>
+          </div>
+
           <div id="pm-cfg-preview" class="text-[11px] text-stone-600 bg-stone-100 rounded-xl px-3 py-2.5 leading-relaxed"></div>
 
           <div class="pt-1">
@@ -977,6 +987,16 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
             </svg>
           </div>
+        </div>
+
+        <div id="edit-pm-autosettle-wrap" class="bg-stone-50 rounded-xl px-3.5 py-2.5 border border-stone-200 flex items-center justify-between gap-3">
+          <div class="min-w-0">
+            <div class="text-[12px] font-bold text-stone-800">引落日に自動で残高へ反映</div>
+            <div class="text-[10px] text-stone-500 mt-0.5">OFFの場合は「引落完了」ボタンを押したときに反映します</div>
+          </div>
+          <button type="button" id="edit-pm-autosettle-btn" onclick="toggleEditPmAutoSettle()" role="switch" aria-checked="true" aria-label="引落日に自動で残高へ反映" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-accent transition-colors duration-200 focus:outline-none">
+            <span id="edit-pm-autosettle-knob" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 translate-x-5"></span>
+          </button>
         </div>
 
         <div class="grid grid-cols-2 gap-2.5 pt-2">
@@ -1151,7 +1171,7 @@
               <li>・月額換算合計・年間換算合計・今月の未請求予定額を自動計算</li>
               <li>・請求日になると、紐づけた支払い方法で家計簿・カレンダーへ<strong>自動記帳</strong>され、同じ請求月が二重に記帳されることはありません（年額プランは請求月のみ）</li>
               <li>・自動記帳はサブスクごとにON/OFFできます。OFFのものは<strong>「今月分を記帳」</strong>ボタンで手動記帳します</li>
-              <li>・即時引落の支払い方法は記帳と同時に口座残高から差し引き、カード等の後払いは「引落完了」で残高に反映します</li>
+              <li>・即時引落の支払い方法は記帳と同時に口座残高から差し引き、カード等の後払いは引落日に自動で（OFFなら「引落完了」ボタンで）残高に反映します</li>
             </ul>
           </div>
 
@@ -1170,7 +1190,7 @@
               </div>
               <div class="bg-purple-50 border border-purple-200/80 rounded-xl p-2.5">
                 <div class="text-[11px] font-bold text-purple-800">📅 クレジットカード</div>
-                <div class="text-[10px] text-purple-700 mt-0.5 leading-snug">指定引落日の予定額へ自動集計（引落完了ボタンで残高反映）</div>
+                <div class="text-[10px] text-purple-700 mt-0.5 leading-snug">指定引落日の予定額へ自動集計（引落日に自動反映／手動の「引落完了」も可）</div>
               </div>
             </div>
           </div>
@@ -1298,7 +1318,7 @@
           <div class="bg-stone-50 rounded-xl px-3.5 py-2.5 border border-stone-200 flex items-center justify-between gap-3">
             <div class="min-w-0">
               <div class="text-[12px] font-bold text-stone-800">請求日に自動記帳</div>
-              <div class="text-[10px] text-stone-500 mt-0.5">請求日になると支出を自動で記帳し、残高へ反映します（カード払いは引落完了時に反映）</div>
+              <div class="text-[10px] text-stone-500 mt-0.5">請求日になると支出を自動で記帳し、残高へ反映します（カード払いは引落日に反映）</div>
             </div>
             <button type="button" id="sub-cfg-autolog-btn" onclick="toggleSubCfgAutoLog()" role="switch" aria-checked="true" aria-label="請求日に自動記帳" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-accent transition-colors duration-200 focus:outline-none">
               <span id="sub-cfg-autolog-knob" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 translate-x-5"></span>
@@ -1775,6 +1795,7 @@
     let pmSearchCat = 'すべて';
     let pmCfgTiming = 'next_month';
     let pmCfgAccountId = 'acc_cash';
+    let pmCfgAutoSettle = true;
 
     let subSearchCat = 'すべて';
     let subCfgIcon = '🔄';
@@ -1792,6 +1813,7 @@
 
     let editingPmId = null;
     let editPmTiming = 'next_month';
+    let editPmAutoSettle = true;
 
     let editingTxId = null;
     let editingTxCat = 'food';
@@ -1822,7 +1844,7 @@
           deductUnpaidSubsFromNet: parsed.deductUnpaidSubsFromNet !== false,
           transactions: Array.isArray(parsed.transactions) ? parsed.transactions : []
         };
-        if (normalizeSubscriptions()) saveState();
+        if (normalizeAutoSettings()) saveState();
       } catch (e) {
         state = getDefaultCleanState();
         saveState();
@@ -2143,11 +2165,83 @@
       return { count, total };
     }
 
+    /* =========================================================================
+       カード等の引き落とし自動反映
+       - 支払い方法ごとに autoSettle（自動反映ON/OFF）を設定
+       - 引落日(以降)になった未反映の明細を自動で「引落済」にし、引き落とし元口座の残高から差し引く
+       - 二重反映防止: 反映済み(settled)の明細は対象外
+       - autoSettleSince 以降の引落日だけが対象（既存の未反映分・OFF期間はさかのぼらない）
+       - 手動で「未引落に戻す」にした明細(manualHold)は自動反映しない
+       ========================================================================= */
+    function isTxAutoSettleEligible(tx) {
+      if (tx.type !== 'expense' || !tx.timing || tx.timing === 'immediate') return false;
+      if (tx.settled || tx.manualHold || !tx.settlementDate) return false;
+      const pm = getPaymentMethod(tx.paymentMethodId);
+      if (!pm || pm.autoSettle === false) return false;
+      return tx.settlementDate >= (pm.autoSettleSince || getTodayISO());
+    }
+
+    function runCardAutoSettle() {
+      const todayStr = getTodayISO();
+      let count = 0;
+      let total = 0;
+
+      state.transactions.forEach((tx) => {
+        if (!isTxAutoSettleEligible(tx)) return;
+        if (tx.settlementDate > todayStr) return;
+
+        const acc = getAccount(tx.accountId);
+        if (!acc) return;
+
+        const amt = Number(tx.amount || 0);
+        tx.settled = true;
+        tx.autoSettled = true;
+        acc.balance -= amt;
+        count += 1;
+        total += amt;
+      });
+
+      if (count > 0) saveState();
+      return { count, total };
+    }
+
+    function normalizePaymentMethods() {
+      const todayStr = getTodayISO();
+      let changed = false;
+      state.paymentMethods.forEach((pm) => {
+        if (pm.isCash) return;
+        if (typeof pm.autoSettle !== 'boolean') { pm.autoSettle = true; changed = true; }
+        if (!pm.autoSettleSince) { pm.autoSettleSince = todayStr; changed = true; }
+      });
+      return changed;
+    }
+
+    function normalizeAutoSettings() {
+      const a = normalizeSubscriptions();
+      const b = normalizePaymentMethods();
+      return a || b;
+    }
+
+    function runAutoProcesses() {
+      const logResult = runSubscriptionAutoLog();
+      const settleResult = runCardAutoSettle();
+      return {
+        count: logResult.count,
+        total: logResult.total,
+        settleCount: settleResult.count,
+        settleTotal: settleResult.total,
+      };
+    }
+
     function autoLogAndRender() {
-      const result = runSubscriptionAutoLog();
+      const result = runAutoProcesses();
       renderAll();
-      if (result.count > 0) {
+      if (result.count > 0 && result.settleCount > 0) {
+        showToast(`自動記帳${result.count}件・引落反映${result.settleCount}件`);
+      } else if (result.count > 0) {
         showToast(`サブスク${result.count}件を自動記帳しました（${fmtYen(result.total)}）`);
+      } else if (result.settleCount > 0) {
+        showToast(`カード引落${result.settleCount}件を残高に反映しました（${fmtYen(result.settleTotal)}）`);
       }
     }
 
@@ -3144,7 +3238,14 @@
       pmCfgAccountId = nonCash ? nonCash.id : state.accounts[0].id;
 
       document.getElementById('pm-cfg-day').value = day === 'last' ? 'last' : String(day || 27);
+      pmCfgAutoSettle = true;
+      renderSwitchUI('pm-cfg-autosettle-btn', 'pm-cfg-autosettle-knob', true);
       selectPmCfgTiming(timing || 'next_month');
+    }
+
+    function togglePmCfgAutoSettle() {
+      pmCfgAutoSettle = !pmCfgAutoSettle;
+      renderSwitchUI('pm-cfg-autosettle-btn', 'pm-cfg-autosettle-knob', pmCfgAutoSettle);
     }
 
     function renderPmCfgAccountGrid() {
@@ -3173,6 +3274,7 @@
           : 'py-2.5 px-1.5 rounded-xl border border-stone-200 bg-white text-center';
       });
       document.getElementById('pm-cfg-day-wrap').classList.toggle('hidden', timing === 'immediate');
+      document.getElementById('pm-cfg-autosettle-wrap').classList.toggle('hidden', timing === 'immediate');
       renderPmCfgAccountGrid();
       updatePmCfgPreview();
     }
@@ -3223,6 +3325,8 @@
         timing: pmCfgTiming,
         day: pmCfgTiming === 'immediate' ? 0 : day,
         isCash: false,
+        autoSettle: pmCfgAutoSettle,
+        autoSettleSince: getTodayISO(),
       };
       state.paymentMethods.push(newPm);
       inpPmId = newPm.id;
@@ -3422,7 +3526,7 @@
         autoLogSince: getTodayISO(),
       });
 
-      const autoResult = runSubscriptionAutoLog();
+      const autoResult = runAutoProcesses();
       saveState();
       closeSubSearchModal();
       renderAll();
@@ -3471,7 +3575,7 @@
       sub.autoLog = sub.autoLog === false;
       if (sub.autoLog) sub.autoLogSince = getTodayISO();
 
-      const autoResult = runSubscriptionAutoLog();
+      const autoResult = runAutoProcesses();
       saveState();
       renderAll();
 
@@ -3581,7 +3685,7 @@
         sub.autoLogSince = getTodayISO();
       }
 
-      const autoResult = runSubscriptionAutoLog();
+      const autoResult = runAutoProcesses();
       saveState();
       closeEditSubModal();
       renderAll();
@@ -3631,15 +3735,19 @@
             settledTotal: 0,
             unsettledCount: 0,
             settledCount: 0,
+            autoPendingCount: 0,
+            autoSettledCount: 0,
             pmNames: new Set(),
           };
         }
         if (tx.settled) {
           settlementGroups[key].settledTotal += amt;
           settlementGroups[key].settledCount += 1;
+          if (tx.autoSettled) settlementGroups[key].autoSettledCount += 1;
         } else {
           settlementGroups[key].unsettledTotal += amt;
           settlementGroups[key].unsettledCount += 1;
+          if (isTxAutoSettleEligible(tx)) settlementGroups[key].autoPendingCount += 1;
         }
         const pm = getPaymentMethod(tx.paymentMethodId);
         if (pm) settlementGroups[key].pmNames.add(pm.name);
@@ -3703,6 +3811,9 @@
       document.getElementById('acc-pm-list').innerHTML = state.paymentMethods.map((pm) => {
         const acc = getAccount(pm.accountId);
         const theme = THEME_COLORS[acc?.color || 'amber'] || THEME_COLORS.amber;
+        const settleMode = pm.timing && pm.timing !== 'immediate'
+          ? (pm.autoSettle === false ? '・手動反映' : '・自動反映')
+          : '';
         return `
           <div onclick="openEditPmModal('${pm.id}')" class="bg-white rounded-2xl px-3.5 py-3 border border-stone-200/90 flex items-center justify-between gap-2 cursor-pointer active:bg-stone-50">
             <div class="flex items-center gap-2.5 min-w-0">
@@ -3711,7 +3822,7 @@
               </span>
               <div class="min-w-0">
                 <div class="text-[13px] font-bold text-stone-800 truncate">${esc(pm.name)}</div>
-                <div class="text-[11px] text-stone-500 truncate">${esc(describePmRule(pm))}</div>
+                <div class="text-[11px] text-stone-500 truncate">${esc(describePmRule(pm) + settleMode)}</div>
               </div>
             </div>
             <span class="text-[11px] font-bold text-stone-400 shrink-0">${pm.isCash ? '基本' : '編集 ›'}</span>
@@ -3743,6 +3854,13 @@
           const countToShow = hasUnsettled ? g.unsettledCount : g.settledCount;
           const shortage = hasUnsettled && accBal < amountToShow;
           const pmStr = Array.from(g.pmNames).join('・');
+          let autoNote = '';
+          if (hasUnsettled) {
+            if (g.autoPendingCount === g.unsettledCount) autoNote = '引落日に自動で残高へ反映されます';
+            else if (g.autoPendingCount > 0) autoNote = '一部は引落日に自動で反映されます';
+          } else if (g.settledCount > 0 && g.autoSettledCount === g.settledCount) {
+            autoNote = '自動で残高に反映済み';
+          }
 
           return `
             <div class="bg-white rounded-2xl p-3.5 border ${shortage ? 'border-red-300 bg-red-50/30' : 'border-stone-200/90'} space-y-2.5">
@@ -3755,6 +3873,7 @@
                     <span class="text-[11px] font-bold text-stone-600 truncate">${esc(accName)}</span>
                   </div>
                   <div class="text-[11px] text-stone-400 mt-0.5 truncate">${esc(pmStr)}（${countToShow}件・タップで内訳）</div>
+                  ${autoNote ? `<div class="text-[10px] font-bold text-emerald-600 mt-0.5">${autoNote}</div>` : ''}
                   ${shortage ? `<div class="text-[11px] font-bold text-red-600 mt-1">⚠️ ${esc(accName)}の残高が不足しています</div>` : ''}
                 </div>
                 <div class="tabular-nums text-[16px] font-bold ${hasUnsettled ? 'text-purple-700' : 'text-stone-400'} shrink-0">
@@ -3901,6 +4020,13 @@
           Boolean(tx.settled) !== markSettled
         ) {
           tx.settled = markSettled;
+          if (markSettled) {
+            delete tx.manualHold;
+          } else {
+            // 手動で未引落に戻した明細は、自動反映で勝手に戻さない
+            tx.manualHold = true;
+            delete tx.autoSettled;
+          }
           diffTotal += Number(tx.amount || 0);
         }
       });
@@ -4075,6 +4201,8 @@
       if (getAccount(pm.accountId)) accSel.value = pm.accountId;
 
       document.getElementById('edit-pm-day').value = pm.day === 'last' ? 'last' : String(pm.day || 27);
+      editPmAutoSettle = pm.autoSettle !== false;
+      renderSwitchUI('edit-pm-autosettle-btn', 'edit-pm-autosettle-knob', editPmAutoSettle);
       selectEditPmTiming(pm.timing || 'next_month');
       document.getElementById('modal-edit-pm').classList.remove('hidden');
     }
@@ -4093,6 +4221,12 @@
           : 'py-2 px-1.5 rounded-xl border border-stone-200 bg-white text-center text-[12px] font-bold text-stone-500';
       });
       document.getElementById('edit-pm-day-wrap').classList.toggle('hidden', timing === 'immediate');
+      document.getElementById('edit-pm-autosettle-wrap').classList.toggle('hidden', timing === 'immediate');
+    }
+
+    function toggleEditPmAutoSettle() {
+      editPmAutoSettle = !editPmAutoSettle;
+      renderSwitchUI('edit-pm-autosettle-btn', 'edit-pm-autosettle-knob', editPmAutoSettle);
     }
 
     function saveEditedPaymentMethod() {
@@ -4108,16 +4242,28 @@
         return;
       }
 
+      const wasImmediate = !pm.timing || pm.timing === 'immediate';
+      const wasAutoSettle = pm.autoSettle !== false;
+
       pm.name = name;
       pm.accountId = accountId;
       pm.timing = editPmTiming;
       pm.day = editPmTiming === 'immediate' ? 0 : day;
+      pm.autoSettle = editPmAutoSettle;
 
+      // 後払いへの変更・自動反映ONへの切替は、今日以降の引落日から自動反映（過去分はさかのぼらない）
+      if (editPmTiming !== 'immediate' && (wasImmediate || (!wasAutoSettle && editPmAutoSettle))) {
+        pm.autoSettleSince = getTodayISO();
+      }
+
+      const settleResult = runCardAutoSettle();
       saveState();
       closeEditPmModal();
       renderAll();
       if (activeTab === 'input') renderInputPmGrid();
-      showToast('支払い方法を更新しました');
+      showToast(settleResult.count > 0
+        ? `支払い方法を更新し、引落${settleResult.count}件を残高に反映しました`
+        : '支払い方法を更新しました');
     }
 
     function deleteEditingPaymentMethod() {
@@ -4334,8 +4480,8 @@
           deductUnpaidSubsFromNet: parsed.deductUnpaidSubsFromNet !== false,
           transactions: Array.isArray(parsed.transactions) ? parsed.transactions : [],
         };
-        normalizeSubscriptions();
-        const autoResult = runSubscriptionAutoLog();
+        normalizeAutoSettings();
+        const autoResult = runAutoProcesses();
         selectedAccFilter = 'all';
         saveState();
         renderAll();
