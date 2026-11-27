@@ -2,6 +2,9 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -4784,15 +4787,13 @@
       const nonThoughtText = parts
         .filter((p) => !p.thought && typeof p.text === 'string')
         .map((p) => p.text)
-        .join('
-')
+        .join('\n')
         .trim();
 
       const fallbackText = parts
         .filter((p) => typeof p.text === 'string')
         .map((p) => p.text)
-        .join('
-')
+        .join('\n')
         .trim();
 
       const rawText = nonThoughtText || fallbackText;
@@ -4840,13 +4841,11 @@
 
       const pmListDesc = state.paymentMethods
         .map((p) => `- id: "${p.id}", name: "${p.name}"`)
-        .join('
-');
+        .join('\n');
 
       const catListDesc = EXPENSE_CATS
         .map((c) => `- id: "${c.id}", label: "${c.label}"`)
-        .join('
-');
+        .join('\n');
 
       const promptText = [
         'あなたは日本の家計簿アプリのレシート・領収書・決済画面解析AIです。',
@@ -4870,8 +4869,7 @@
         '',
         '出力JSON形式:',
         '{"amount": 1280, "date": "2026-11-27", "storeName": "店名", "summary": "主な品目", "category": "food", "paymentMethodId": ""}'
-      ].join('
-');
+      ].join('\n');
 
       const requestBody = {
         contents: [
@@ -5054,29 +5052,40 @@
        10. 初期化エントリーポイント
        ========================================================================= */
     function initApp() {
-      loadState();
-      populateDaySelects();
-      bindSwipeHandlers();
-      bindSearchModalDelegation();
-      startMidnightWatcher();
-      updateGeminiKeyStatusUI();
+      try {
+        loadState();
+        populateDaySelects();
+        bindSwipeHandlers();
+        bindSearchModalDelegation();
+        startMidnightWatcher();
+        updateGeminiKeyStatusUI();
 
-      const keyInput = document.getElementById('settings-gemini-key-input');
-      if (keyInput) {
-        keyInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            saveGeminiApiKey();
-          }
-        });
+        const keyInput = document.getElementById('settings-gemini-key-input');
+        if (keyInput) {
+          keyInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              saveGeminiApiKey();
+            }
+          });
+        }
+
+        const confirmExecBtn = document.getElementById('confirm-modal-exec');
+        if (confirmExecBtn) {
+          confirmExecBtn.addEventListener('click', () => {
+            if (confirmAction) confirmAction();
+            closeConfirmModal();
+          });
+        }
+
+        autoLogAndRender();
+      } catch (err) {
+        console.error('initApp recovery:', err);
+        state = getDefaultCleanState();
+        saveState();
+        populateDaySelects();
+        renderAll();
       }
-
-      document.getElementById('confirm-modal-exec').addEventListener('click', () => {
-        if (confirmAction) confirmAction();
-        closeConfirmModal();
-      });
-
-      autoLogAndRender();
     }
 
     if (document.readyState === 'loading') {
